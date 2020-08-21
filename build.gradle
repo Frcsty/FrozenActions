@@ -1,0 +1,42 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.3.72"
+    id "com.github.johnrengelman.shadow" version "6.0.0"
+}
+
+group = "com.github.frcsty"
+version = "1.0.0"
+
+repositories {
+    mavenCentral()
+    maven { url = "https://repo.destroystokyo.com/repository/maven-public/" }
+    maven { url = "http://repo.extendedclip.com/content/repositories/placeholderapi/" }
+}
+
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72") {
+        exclude group: "org.jetbrains", module: "annotations"
+    }
+    compileOnly "org.jetbrains:annotations:19.0.0"
+    compileOnly "com.destroystokyo.paper:paper-api:1.16.1-R0.1-SNAPSHOT"
+    compileOnly "me.clip:placeholderapi:2.10.9"
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+def path = "com.github.frcsty.frozenactions.libs"
+
+shadowJar {
+    relocate "kotlin", "${path}.kotlin"
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+compileKotlin {
+    kotlinOptions.jvmTarget = sourceCompatibility
+}
