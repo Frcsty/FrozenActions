@@ -1,5 +1,6 @@
 # FrozenActions
 
+```yaml
 #   Available Modifiers:
 #    - [CHANCE=<chance>]
 #    - [DELAY=<delay>]
@@ -47,3 +48,4 @@
 # • [BROADCAST] &aHello Players
 # • [MESSAGE] &cHello &2World
 # • [EQUIP] STONE;&aTest Stone;Some~Lore;3;2
+```
