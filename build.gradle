@@ -33,7 +33,7 @@ shadowJar {
     archiveFileName.set("FrozenActions-${project.version}.jar")
 }
 
-sourceCompatibility = JavaVersion.VERSION_13
+sourceCompatibility = JavaVersion.VERSION_1_8
 
 compileKotlin {
     kotlinOptions.jvmTarget = sourceCompatibility
