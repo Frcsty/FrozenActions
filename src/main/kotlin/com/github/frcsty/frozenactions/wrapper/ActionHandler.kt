@@ -1,13 +1,12 @@
 package com.github.frcsty.frozenactions.wrapper
 
-import com.github.frcsty.frozenactions.FrozenActions
 import com.github.frcsty.frozenactions.actions.Action
 import com.github.frcsty.frozenactions.actions.broadcast.*
 import com.github.frcsty.frozenactions.actions.player.*
 import com.github.frcsty.frozenactions.time.parseTime
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
-import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.plugin.Plugin
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -16,11 +15,9 @@ private val DELAY_PATTERN = Regex("\\[DELAY=(?<delay>\\d+[a-z])]", RegexOption.I
 private val CHANCE_PATTERN = Regex("\\[CHANCE=(?<chance>\\d+)]", RegexOption.IGNORE_CASE)
 private val RANDOM = SplittableRandom()
 
-class ActionHandler {
+class ActionHandler(private val plugin: Plugin) {
 
-    private val plugin: FrozenActions = JavaPlugin.getPlugin(FrozenActions::class.java)
-
-    private val actions = mutableMapOf<String, Action>()
+    val actions = mutableMapOf<String, Action>()
 
     fun loadDefault() {
         setOf(
@@ -41,11 +38,15 @@ class ActionHandler {
                 TeleportAction,
                 TitleBroadcastAction,
                 TitleMessageAction
-        ).forEach{ this.actions[it.id] = it }
+        ).forEach { this.actions[it.id] = it }
     }
 
     fun setAction(identifier: String, action: Action) {
         this.actions[identifier] = action
+    }
+
+    fun removeAction(identifier: String) {
+        this.actions.remove(identifier)
     }
 
     fun execute(player: Player, input: List<String>) {
@@ -66,7 +67,6 @@ class ActionHandler {
         val delay = actionHolder.delay
 
         val actionName = match.groups["action"]?.value?.toUpperCase()
-
         val action = actions[actionName] ?: return
 
         Bukkit.getScheduler().runTaskLater(
@@ -83,12 +83,9 @@ class ActionHandler {
         val match = CHANCE_PATTERN.matchEntire(input) ?: return input
         val chanceGroup = match.groups["chance"] ?: return null
         val chance = chanceGroup.value.toInt()
-
         val randomValue = RANDOM.nextInt(100) + 1
 
-        return if (randomValue <= chance) {
-            input.replace(chanceGroup.value, "")
-        } else null
+        return if (randomValue <= chance) input.replace(chanceGroup.value, "") else null
     }
 
     private fun getDelayAction(input: String): ActionHolder {
