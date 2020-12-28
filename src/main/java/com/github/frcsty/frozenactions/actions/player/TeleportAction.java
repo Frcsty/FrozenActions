@@ -1,9 +1,9 @@
 package com.github.frcsty.frozenactions.actions.player;
 
 import com.github.frcsty.frozenactions.actions.Action;
+import com.github.frcsty.frozenactions.actions.ActionContext;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 public final class TeleportAction implements Action {
 
@@ -13,8 +13,8 @@ public final class TeleportAction implements Action {
     }
 
     @Override
-    public void run(final Player player, final String data) {
-        final String[] args = data.split(";");
+    public void run(final ActionContext context) {
+        final String[] args = context.getDataAsStringArray(";");
         final Location location = new Location(
                 Bukkit.getWorld(args[0]),
                 Double.valueOf(args[1]),
@@ -24,7 +24,7 @@ public final class TeleportAction implements Action {
                 Float.valueOf(args[5])
         );
 
-        player.teleport(location);
+        context.getPlayer().teleport(location);
     }
 
 }

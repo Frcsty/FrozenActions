@@ -1,8 +1,12 @@
 package com.github.frcsty.frozenactions.wrapper;
 
 import com.github.frcsty.frozenactions.actions.Action;
-import com.github.frcsty.frozenactions.actions.player.TeleportAction;
+import com.github.frcsty.frozenactions.actions.ActionContext;
+import com.github.frcsty.frozenactions.actions.broadcast.*;
+import com.github.frcsty.frozenactions.actions.player.*;
 import com.github.frcsty.frozenactions.time.TimeAPI;
+import me.mattstudios.mfmsg.base.MessageOptions;
+import me.mattstudios.mfmsg.bukkit.BukkitMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -19,8 +23,9 @@ public final class ActionHandler {
     private static final Pattern CHANCE_PATTERN = Pattern.compile("\\[CHANCE=(?<chance>\\d+)]", Pattern.CASE_INSENSITIVE);
     private static final SplittableRandom RANDOM = new SplittableRandom();
 
-    private final Map<String, Action> actions = new HashMap<>();
+    private static BukkitMessage bukkitMessage = BukkitMessage.create();
 
+    private final Map<String, Action> actions = new HashMap<>();
     private final Plugin plugin;
 
     public ActionHandler(final Plugin plugin) {
@@ -29,22 +34,47 @@ public final class ActionHandler {
         Bukkit.getMessenger().registerOutgoingPluginChannel(plugin, "BungeeCord");
     }
 
-    public void loadDefaults() {
+    public static BukkitMessage getBukkitMessage() {
+        return bukkitMessage;
+    }
+
+    public void loadDefaults(final boolean defaultBukkitMessage) {
         Arrays.asList(
-            new TeleportAction()
-        ).forEach(it -> actions.put(it.getId(), it));
+                // Broadcast
+                new ActionbarBroadcastAction(),
+                new BroadcastAction(),
+                new CenterBroadcastAction(),
+                new JsonBroadcastAction(),
+                new SoundBroadcastAction(),
+                new TitleBroadcastAction(),
+
+                // Player
+                new ActionbarMessageAction(),
+                new BungeeAction(),
+                new CenterMessageAction(),
+                new ConsoleCommandAction(),
+                new JsonMessageAction(),
+                new MessageAction(),
+                new PlayerCommandAction(),
+                new SoundAction(),
+                new TeleportAction(),
+                new TitleMessageAction()
+        ).forEach(it -> actions.put(it.getId().toUpperCase(), it));
+
+        if (defaultBukkitMessage)
+            bukkitMessage = BukkitMessage.create();
+    }
+
+    public void createBukkitMessage(final MessageOptions options) {
+        bukkitMessage = BukkitMessage.create(options);
     }
 
     public void setAction(final Action action) {
-        this.actions.put(action.getId(), action);
-    }
-
-    public void setAction(final String identifier, final Action action) {
-        this.actions.put(identifier, action);
+        this.actions.put(action.getId().toUpperCase(), action);
     }
 
     public void removeAction(final String identifier) {
-        this.actions.remove(identifier);
+        this.actions.remove(identifier.toUpperCase());
     }
 
     public void execute(final Player player, final List<String> actions) {
@@ -72,10 +102,7 @@ public final class ActionHandler {
 
         Bukkit.getScheduler().runTaskLater(
                 plugin,
-                () -> {
-                    action.run(player, arguments);
-                    action.run(plugin, player, arguments);
-                },
+                () -> action.run(new ActionContext(plugin, player, arguments)),
                 delay
         );
     }
