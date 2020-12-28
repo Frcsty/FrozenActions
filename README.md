@@ -19,7 +19,6 @@
 # • [CONSOLECOMMAND] <command>
 # • [PLAYERCOMMAND] <command>
 # • [MESSAGE] <message>
-# • [EQUIP] <item,data;display;lore;amount;slot>
 #
 # Everyone:
 # • [JSONMESSAGE] <JSON message>
@@ -47,5 +46,4 @@
 # • [PLAYERCOMMAND] balance
 # • [BROADCAST] &aHello Players
 # • [MESSAGE] &cHello &2World
-# • [EQUIP] STONE;&aTest Stone;Some~Lore;3;2
 ```
