@@ -14,11 +14,12 @@
 # • [ACTIONBARMESSAGE] <message>
 # • [TITLEMESSAGE] <title;subtitle;fadein;stay;fadeout>
 # • [SOUND] <sound;volume;pitch>
-# • [BUNGEE] <server>
+# • [BUNGEE] <server>````
 # • [TELEPORT] <world;x;y;z;yaw;pitch>
 # • [CONSOLECOMMAND] <command>
 # • [PLAYERCOMMAND] <command>
 # • [MESSAGE] <message>
+# • [GAMEMODE] <gamemode>
 #
 # Everyone:
 # • [JSONMESSAGE] <JSON message>
@@ -46,4 +47,5 @@
 # • [PLAYERCOMMAND] balance
 # • [BROADCAST] &aHello Players
 # • [MESSAGE] &cHello &2World
+# • [GAMEMODE] creative
 ```
