@@ -58,7 +58,8 @@ public final class ActionHandler {
                 new PlayerCommandAction(),
                 new SoundAction(),
                 new TeleportAction(),
-                new TitleMessageAction()
+                new TitleMessageAction(),
+                new GameModeAction()
         ).forEach(it -> actions.put(it.getId().toUpperCase(), it));
 
         if (defaultBukkitMessage)
