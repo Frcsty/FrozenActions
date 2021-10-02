@@ -20,6 +20,7 @@
 # • [PLAYERCOMMAND] <command>
 # • [MESSAGE] <message>
 # • [GAMEMODE] <gamemode>
+# • [POTIONEFFECT] <effect;duration(ticks);amplitude>
 #
 # Everyone:
 # • [JSONMESSAGE] <JSON message>
@@ -48,4 +49,5 @@
 # • [BROADCAST] &aHello Players
 # • [MESSAGE] &cHello &2World
 # • [GAMEMODE] creative
+# • [POTIONEFFECT] glowing;200;5
 ```
