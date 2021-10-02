@@ -21,6 +21,7 @@
 # • [MESSAGE] <message>
 # • [GAMEMODE] <gamemode>
 # • [POTIONEFFECT] <effect;duration(ticks);amplitude>
+# • [PARTICLE] <particle;count;offsetX;offsetY;offsetZ;extra>
 #
 # Everyone:
 # • [JSONMESSAGE] <JSON message>
@@ -50,4 +51,5 @@
 # • [MESSAGE] &cHello &2World
 # • [GAMEMODE] creative
 # • [POTIONEFFECT] glowing;200;5
+# • [PARTICLE] DOLPHIN;5;0;0;0;0
 ```
