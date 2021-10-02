@@ -13,6 +13,8 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,9 +29,11 @@ public final class ActionHandler {
 
     private final Map<String, Action> actions = new HashMap<>();
     private final Plugin plugin;
+    private final Logger logger;
 
     public ActionHandler(final Plugin plugin) {
         this.plugin = plugin;
+        this.logger = plugin.getLogger();
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(plugin, "BungeeCord");
     }
@@ -89,7 +93,7 @@ public final class ActionHandler {
         final Matcher match = ACTION_PATTERN.matcher(inputAction);
 
         if (!match.matches()) {
-            System.out.println("Action does not match regex '" + inputAction + "'!");
+            logger.info("Action does not match regex '" + inputAction + "'!");
             return;
         }
 
@@ -119,7 +123,7 @@ public final class ActionHandler {
         if (chanceGroup == null)
             return null;
 
-        final int chance = Integer.valueOf(chanceGroup);
+        final int chance = Integer.parseInt(chanceGroup);
         final int randomValue = RANDOM.nextInt(100) + 1;
 
         return randomValue <= chance ? input.replace(chanceGroup, "") : null;
@@ -144,7 +148,7 @@ public final class ActionHandler {
                     time.to(TimeUnit.SECONDS) * 20
             );
         } catch (final IllegalArgumentException ex) {
-            ex.printStackTrace();
+            logger.log(Level.SEVERE, "", ex);
         }
 
         return new ActionHolder(input, 0L);
