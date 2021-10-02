@@ -14,14 +14,14 @@ public final class TeleportAction implements Action {
 
     @Override
     public void run(final ActionContext context) {
-        final String[] args = context.getDataAsStringArray(";");
+        final String[] arguments = context.getDataAsStringArray(";");
         final Location location = new Location(
-                Bukkit.getWorld(args[0]),
-                Double.valueOf(args[1]),
-                Double.valueOf(args[2]),
-                Double.valueOf(args[3]),
-                Float.valueOf(args[4]),
-                Float.valueOf(args[5])
+                Bukkit.getWorld(arguments[0]),
+                Double.valueOf(arguments[1]),
+                Double.valueOf(arguments[2]),
+                Double.valueOf(arguments[3]),
+                Float.valueOf(arguments[4]),
+                Float.valueOf(arguments[5])
         );
 
         context.getPlayer().teleport(location);
