@@ -22,6 +22,7 @@
 # • [GAMEMODE] <gamemode>
 # • [POTIONEFFECT] <effect;duration(ticks);amplitude>
 # • [PARTICLE] <particle;count;offsetX;offsetY;offsetZ;extra>
+# • [HEALTH] <[+/-]value>
 #
 # Everyone:
 # • [JSONMESSAGE] <JSON message>
@@ -52,4 +53,6 @@
 # • [GAMEMODE] creative
 # • [POTIONEFFECT] glowing;200;5
 # • [PARTICLE] DOLPHIN;5;0;0;0;0
+# • [HEALTH] 10
+# • [HEALTH] -2
 ```

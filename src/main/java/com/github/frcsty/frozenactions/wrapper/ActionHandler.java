@@ -66,7 +66,8 @@ public final class ActionHandler {
                 new GameModeAction(),
                 new PotionEffectAction(),
                 new TimeAction(),
-                new ParticleAction()
+                new ParticleAction(),
+                new HealthAction()
         ).forEach(it -> actions.put(it.getId().toUpperCase(), it));
 
         if (defaultBukkitMessage)
