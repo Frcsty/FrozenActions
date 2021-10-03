@@ -23,6 +23,7 @@
 # • [POTIONEFFECT] <effect;duration(ticks);amplitude>
 # • [PARTICLE] <particle;count;offsetX;offsetY;offsetZ;extra>
 # • [HEALTH] <[+/-]value>
+# • [FOODLEVEL] <[+/-]value>
 #
 # Everyone:
 # • [JSONMESSAGE] <JSON message>
@@ -55,4 +56,6 @@
 # • [PARTICLE] DOLPHIN;5;0;0;0;0
 # • [HEALTH] 10
 # • [HEALTH] -2
+# • [FOODLEVEL] 10
+# • [FOODLEVEL] -2
 ```
