@@ -9,10 +9,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-// ------------------------------
-// Copyright (c) PiggyPiglet 2021
-// https://www.piggypiglet.me
-// ------------------------------
 public final class PotionEffectAction implements Action {
     private static final Map<String, PotionEffectType> EFFECTS = Arrays.stream(PotionEffectType.values())
             .collect(Collectors.toUnmodifiableMap(effect -> effect.getName().toLowerCase(), effect -> effect));
