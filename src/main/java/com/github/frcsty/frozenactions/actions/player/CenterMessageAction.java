@@ -4,6 +4,7 @@ import com.github.frcsty.frozenactions.actions.Action;
 import com.github.frcsty.frozenactions.actions.ActionContext;
 import com.github.frcsty.frozenactions.util.DefaultFontInfo;
 import com.github.frcsty.frozenactions.util.Extensions;
+import org.jetbrains.annotations.NotNull;
 
 public final class CenterMessageAction implements Action {
 
@@ -11,12 +12,12 @@ public final class CenterMessageAction implements Action {
     private static final int MAX_PX = 250;
 
     @Override
-    public String getId() {
+    public @NotNull String getId() {
         return "CENTERMESSAGE";
     }
 
     @Override
-    public void run(final ActionContext context) {
+    public void run(final @NotNull ActionContext context) {
         execute(context);
     }
 
@@ -32,23 +33,23 @@ public final class CenterMessageAction implements Action {
         String toSendAfter = null;
         String recentColorCode = "";
 
-        for (char c : message.toCharArray()) {
-            if (c == '§') {
+        for (char character : message.toCharArray()) {
+            if (character == '\u00a7') {
                 previousCode = true;
                 continue;
             } else if (previousCode) {
                 previousCode = false;
-                recentColorCode = "§" + c;
-                if (c == 'l' || c == 'L') {
+                recentColorCode = "§" + character;
+                if (character == 'l' || character == 'L') {
                     isBold = true;
                     continue;
                 } else {
                     isBold = false;
                 }
-            } else if (c == ' ') {
+            } else if (character == ' ') {
                 lastSpaceIndex = charIndex;
             } else {
-                final DefaultFontInfo dfi = DefaultFontInfo.getDefaultFontInfo(c);
+                final DefaultFontInfo dfi = DefaultFontInfo.getDefaultFontInfo(character);
 
                 messagePxSize += isBold ? dfi.getBoldLength() : dfi.getLength();
                 messagePxSize++;

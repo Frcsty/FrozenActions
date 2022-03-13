@@ -4,20 +4,21 @@ import com.github.frcsty.frozenactions.wrapper.ActionHandler;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public final class Extensions {
 
-    public static String colorize(final String text) {
-        return ActionHandler.getBukkitMessage().parse(text).toString();
+    public static @NotNull String colorize(final @NotNull String text) {
+        return ActionHandler.getAdventureMessage().parse(text).toString();
     }
 
-    public static void sendTranslatedMessage(final Player player, final String text) {
+    public static void sendTranslatedMessage(final @NotNull Player player, final @NotNull String text) {
         final String message = getTranslatedMessage(text, player);
 
-        player.sendMessage(ActionHandler.getBukkitMessage().parse(message).toString());
+        player.sendMessage(ActionHandler.getAdventureMessage().parse(message).toString());
     }
 
-    public static String getTranslatedMessage(String text, final Player player) {
+    public static @NotNull String getTranslatedMessage(@NotNull String text, final @NotNull Player player) {
         final boolean daddy = Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI");
 
         if (daddy)

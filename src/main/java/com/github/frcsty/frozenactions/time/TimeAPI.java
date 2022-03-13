@@ -1,5 +1,7 @@
 package com.github.frcsty.frozenactions.time;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +13,7 @@ public final class TimeAPI {
     private static final int DAYS_IN_MONTH = 30;
     private static final int DAYS_IN_YEAR = 365;
 
-    public TimeResult parseTime(final String input) {
+    public @NotNull TimeResult parseTime(final @NotNull String input) {
         long seconds = 0L;
         final TimeScanner scanner = new TimeScanner(
                 input
@@ -25,26 +27,13 @@ public final class TimeAPI {
         while (scanner.hasNext()) {
             next = scanner.nextLong();
             switch (TimeType.getType(scanner.nextString())) {
-                case SECOND:
-                    seconds += next;
-                    break;
-                case MINUTE:
-                    seconds += TimeUnit.MINUTES.toSeconds(next);
-                    break;
-                case HOUR:
-                    seconds += TimeUnit.HOURS.toSeconds(next);
-                    break;
-                case DAY:
-                    seconds += TimeUnit.DAYS.toSeconds(next);
-                    break;
-                case WEEK:
-                    seconds += TimeUnit.DAYS.toSeconds(next * DAYS_IN_WEEK);
-                    break;
-                case MONTH:
-                    seconds += TimeUnit.DAYS.toSeconds(next * DAYS_IN_MONTH);
-                    break;
-                case YEAR:
-                    seconds += TimeUnit.DAYS.toSeconds(next * DAYS_IN_YEAR);
+                case SECOND -> seconds += next;
+                case MINUTE -> seconds += TimeUnit.MINUTES.toSeconds(next);
+                case HOUR -> seconds += TimeUnit.HOURS.toSeconds(next);
+                case DAY -> seconds += TimeUnit.DAYS.toSeconds(next);
+                case WEEK -> seconds += TimeUnit.DAYS.toSeconds(next * DAYS_IN_WEEK);
+                case MONTH -> seconds += TimeUnit.DAYS.toSeconds(next * DAYS_IN_MONTH);
+                case YEAR -> seconds += TimeUnit.DAYS.toSeconds(next * DAYS_IN_YEAR);
             }
         }
 

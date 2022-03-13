@@ -5,11 +5,13 @@ import com.github.frcsty.frozenactions.actions.ActionContext;
 import com.github.frcsty.frozenactions.actions.broadcast.*;
 import com.github.frcsty.frozenactions.actions.player.*;
 import com.github.frcsty.frozenactions.time.TimeAPI;
-import me.mattstudios.mfmsg.base.MessageOptions;
-import me.mattstudios.mfmsg.bukkit.BukkitMessage;
+import me.mattstudios.msg.adventure.AdventureMessage;
+import me.mattstudios.msg.base.MessageOptions;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +27,7 @@ public final class ActionHandler {
     private static final Pattern CHANCE_PATTERN = Pattern.compile("\\[CHANCE=(?<chance>\\d+)]", Pattern.CASE_INSENSITIVE);
     private static final SplittableRandom RANDOM = new SplittableRandom();
 
-    private static BukkitMessage bukkitMessage = BukkitMessage.create();
+    private static AdventureMessage adventureMessage = AdventureMessage.create();
 
     private final Map<String, Action> actions = new HashMap<>();
     private final Plugin plugin;
@@ -38,11 +40,11 @@ public final class ActionHandler {
         Bukkit.getMessenger().registerOutgoingPluginChannel(plugin, "BungeeCord");
     }
 
-    public static BukkitMessage getBukkitMessage() {
-        return bukkitMessage;
+    public static AdventureMessage getAdventureMessage() {
+        return adventureMessage;
     }
 
-    public void loadDefaults(final boolean defaultBukkitMessage) {
+    public void loadDefaults(final boolean defaultAdventureMessage) {
         Arrays.asList(
                 // Broadcast
                 new ActionbarBroadcastAction(),
@@ -71,29 +73,32 @@ public final class ActionHandler {
                 new FoodLevelAction()
         ).forEach(it -> actions.put(it.getId().toUpperCase(), it));
 
-        if (defaultBukkitMessage)
-            bukkitMessage = BukkitMessage.create();
+        if (defaultAdventureMessage)
+            adventureMessage = AdventureMessage.create();
     }
 
-    public void createBukkitMessage(final MessageOptions options) {
-        bukkitMessage = BukkitMessage.create(options);
+    public void createAdventureMessage(final @NotNull MessageOptions options) {
+        adventureMessage = AdventureMessage.create(options);
     }
 
-    public void setAction(final Action action) {
+    public void setAction(final @NotNull Action action) {
         this.actions.put(action.getId().toUpperCase(), action);
     }
 
-    public void removeAction(final String identifier) {
+    public void removeAction(final @NotNull String identifier) {
         this.actions.remove(identifier.toUpperCase());
     }
 
-    public void execute(final Player player, final List<String> actions) {
+    public void execute(final @NotNull Player player, final @NotNull List<String> actions) {
         actions.forEach(it -> execute(player, it));
     }
 
-    private void execute(final Player player, final String input) {
+    private void execute(final @NotNull Player player, final @NotNull String input) {
         if (hasChanceAction(input) == null) return;
-        final ActionHolder actionHolder = getDelayAction(hasChanceAction(input));
+        final String chanceAction = hasChanceAction(input);
+
+        if (chanceAction == null) return;
+        final ActionHolder actionHolder = getDelayAction(chanceAction);
         final String inputAction = actionHolder.getAction();
         final Matcher match = ACTION_PATTERN.matcher(inputAction);
 
@@ -117,7 +122,7 @@ public final class ActionHandler {
         );
     }
 
-    private String hasChanceAction(String input) {
+    private @Nullable String hasChanceAction(@NotNull String input) {
         final Matcher match = CHANCE_PATTERN.matcher(input);
 
         if (!match.matches())
@@ -134,7 +139,7 @@ public final class ActionHandler {
         return randomValue <= chance ? input.replace(chanceGroup, "") : null;
     }
 
-    private ActionHolder getDelayAction(final String input) {
+    private @NotNull ActionHolder getDelayAction(final @NotNull String input) {
         final Matcher match = DELAY_PATTERN.matcher(input);
 
         if (!match.matches())

@@ -1,41 +1,29 @@
 package com.github.frcsty.frozenactions.actions;
 
-import com.google.common.primitives.Ints;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
-public final class ActionContext {
+public record ActionContext(@NotNull Plugin plugin, @NotNull Player player, @NotNull String data) {
 
-    private final Plugin plugin;
-    private final Player player;
-    private final String data;
-
-    public ActionContext(final Plugin plugin, final Player player, final String data) {
-        this.plugin = plugin;
-        this.player = player;
-        this.data = data;
-    }
-
-    public Plugin getPlugin() {
+    public @NotNull Plugin getPlugin() {
         return this.plugin;
     }
 
-    public Player getPlayer() {
+    public @NotNull Player getPlayer() {
         return this.player;
     }
 
-    public String getData() {
+    public @NotNull String getData() {
         return this.data;
     }
 
     public int getDataAsInt() {
-        final Integer data = Ints.tryParse(this.data);
-
-        return data == null ? 0 : data;
+        return Integer.parseInt(this.data);
     }
 
-    public String[] getDataAsStringArray(final String splitterator) {
-        return this.data.split(splitterator);
+    public @NotNull String[] getDataAsStringArray(final @NotNull String spliterator) {
+        return this.data.split(spliterator);
     }
 
 }

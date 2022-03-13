@@ -2,17 +2,17 @@ package com.github.frcsty.frozenactions.actions.player;
 
 import com.github.frcsty.frozenactions.actions.Action;
 import com.github.frcsty.frozenactions.actions.ActionContext;
-import com.github.frcsty.frozenactions.util.Titles;
+import org.jetbrains.annotations.NotNull;
 
 public final class ActionbarMessageAction implements Action {
 
     @Override
-    public String getId() {
+    public @NotNull String getId() {
         return "ACTIONBARMESSAGE";
     }
 
     @Override
-    public void run(final ActionContext context) {
-        Titles.sendActionBarMessage(context.getPlayer(), context.getData());
+    public void run(final @NotNull ActionContext context) {
+        context.getPlayer().sendActionBar(context.getData());
     }
 }

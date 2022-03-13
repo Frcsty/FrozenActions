@@ -1,9 +1,11 @@
 package com.github.frcsty.frozenactions.actions;
 
+import org.jetbrains.annotations.NotNull;
+
 public interface Action {
 
-    String getId();
+    @NotNull String getId();
 
-    default void run(final ActionContext context) { }
+    default void run(final @NotNull ActionContext context) { }
 
 }

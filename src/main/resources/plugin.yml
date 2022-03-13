@@ -1,4 +1,4 @@
 name: FrozenActions
 version: @version@
 main: com.github.frcsty.frozenactions.FrozenActions
-api-version: 1.13
+api-version: 1.16

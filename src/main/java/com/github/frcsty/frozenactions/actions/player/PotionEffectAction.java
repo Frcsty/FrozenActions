@@ -4,6 +4,7 @@ import com.github.frcsty.frozenactions.actions.Action;
 import com.github.frcsty.frozenactions.actions.ActionContext;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -14,12 +15,12 @@ public final class PotionEffectAction implements Action {
             .collect(Collectors.toUnmodifiableMap(effect -> effect.getName().toLowerCase(), effect -> effect));
 
     @Override
-    public String getId() {
+    public @NotNull String getId() {
         return "POTIONEFFECT";
     }
 
     @Override
-    public void run(final ActionContext context) {
+    public void run(final @NotNull ActionContext context) {
         final String[] args = context.getDataAsStringArray(";");
         final PotionEffectType effect = EFFECTS.get(args[0].toLowerCase());
 

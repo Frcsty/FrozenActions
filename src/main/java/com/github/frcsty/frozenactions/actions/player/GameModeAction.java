@@ -3,6 +3,7 @@ package com.github.frcsty.frozenactions.actions.player;
 import com.github.frcsty.frozenactions.actions.Action;
 import com.github.frcsty.frozenactions.actions.ActionContext;
 import org.bukkit.GameMode;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -16,12 +17,12 @@ public final class GameModeAction implements Action {
     private static final GameMode DEFAULT_GAME_MODE = GameMode.ADVENTURE;
 
     @Override
-    public String getId() {
+    public @NotNull String getId() {
         return "GAMEMODE";
     }
 
     @Override
-    public void run(final ActionContext context) {
+    public void run(final @NotNull ActionContext context) {
         context.getPlayer().setGameMode(GAME_MODES.getOrDefault(context.getData().toLowerCase(), DEFAULT_GAME_MODE));
     }
 }

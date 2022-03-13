@@ -4,16 +4,17 @@ import com.github.frcsty.frozenactions.actions.Action;
 import com.github.frcsty.frozenactions.actions.ActionContext;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class ParticleAction implements Action {
 
     @Override
-    public String getId() {
+    public @NotNull String getId() {
         return "PARTICLE";
     }
 
     @Override
-    public void run(final ActionContext context) {
+    public void run(final @NotNull ActionContext context) {
         final Player player = context.getPlayer();
         final String[] arguments = context.getDataAsStringArray(";");
 

@@ -1,20 +1,14 @@
 package com.github.frcsty.frozenactions.wrapper;
 
-public final class ActionHolder {
+import org.jetbrains.annotations.NotNull;
 
-    private final String action;
-    private final Long delay;
+public record ActionHolder(@NotNull String action, @NotNull Long delay) {
 
-    public ActionHolder(final String action, final Long delay) {
-        this.action = action;
-        this.delay = delay;
-    }
-
-    public String getAction() {
+    public @NotNull String getAction() {
         return this.action;
     }
 
-    public Long getDelay() {
+    public @NotNull Long getDelay() {
         return this.delay;
     }
 
