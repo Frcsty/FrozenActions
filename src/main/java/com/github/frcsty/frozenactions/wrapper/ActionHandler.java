@@ -2,6 +2,7 @@ package com.github.frcsty.frozenactions.wrapper;
 
 import com.github.frcsty.frozenactions.actions.Action;
 import com.github.frcsty.frozenactions.actions.ActionContext;
+import com.github.frcsty.frozenactions.actions.player.AdventureSoundAction;
 import com.github.frcsty.frozenactions.actions.broadcast.*;
 import com.github.frcsty.frozenactions.actions.player.*;
 import com.github.frcsty.frozenactions.time.TimeAPI;
@@ -47,6 +48,7 @@ public final class ActionHandler {
     public void loadDefaults(final boolean defaultAdventureMessage) {
         Arrays.asList(
                 // Broadcast
+                new AdventureSoundBroadcastAction(),
                 new ActionbarBroadcastAction(),
                 new BroadcastAction(),
                 new CenterBroadcastAction(),
@@ -55,6 +57,7 @@ public final class ActionHandler {
                 new TitleBroadcastAction(),
 
                 // Player
+                new AdventureSoundAction(),
                 new ActionbarMessageAction(),
                 new BungeeAction(),
                 new CenterMessageAction(),
