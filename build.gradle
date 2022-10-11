@@ -22,7 +22,7 @@ dependencies {
 	implementation "org.jetbrains:annotations:23.0.0"
 	implementation "me.mattstudios:triumph-msg-adventure:2.2.4-SNAPSHOT"
 	
-	compileOnly "io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT"
+	compileOnly "io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT"
 	compileOnly "me.clip:placeholderapi:2.10.9"
 }
 

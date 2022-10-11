@@ -49,6 +49,7 @@ public final class ActionHandler {
         Arrays.asList(
                 // Broadcast
                 new AdventureSoundBroadcastAction(),
+                new MiniMessageBroadcastAction(),
                 new ActionbarBroadcastAction(),
                 new BroadcastAction(),
                 new CenterBroadcastAction(),
@@ -58,6 +59,7 @@ public final class ActionHandler {
 
                 // Player
                 new AdventureSoundAction(),
+                new MiniMessageAction(),
                 new ActionbarMessageAction(),
                 new BungeeAction(),
                 new CenterMessageAction(),
