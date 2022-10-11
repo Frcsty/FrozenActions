@@ -62,6 +62,7 @@ public final class ActionHandler {
                 new JsonMessageAction(),
                 new MessageAction(),
                 new PlayerCommandAction(),
+                new ChatAction(),
                 new SoundAction(),
                 new TeleportAction(),
                 new TitleMessageAction(),
